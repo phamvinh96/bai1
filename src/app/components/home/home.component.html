@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<script>
+		const productForm = document.querySelector('#product-form');
+		const productList = document.querySelector('#product-list tbody');
+  
+		// Xử lý khi form được submit
+		productForm.addEventListener('submit', (e) => {
+		  e.preventDefault(); // Ngăn chặn form submit mặc định        // Lấy thông tin sản phẩm từ form
+		  const name = document.querySelector('#name').value;
+		  const quantity = document.querySelector('#quantity').value;
+		  const status = document.querySelector('#status').value;
+		  const category = document.querySelector('#category').value;
+		  const supplier = document.querySelector('#supplier').value;
+		  const price = document.querySelector('#price').value;
+		  const description = document.querySelector('#description').value;
+  
+		  // Tạo HTML cho sản phẩm
+		  const html = `
+			<tr>
+			  <td>${name}</td>
+			  <td>${quantity}</td>
+			  <td>${status}</td>
+			  <td>${category}</td>
+			  <td>${supplier}</td>
+			  <td>${price}</td>
+			  <td>${description}</td>
+			</tr>
+		  `;
+  
+		  // Thêm sản phẩm vào danh sách sản phẩm
+		  productList.insertAdjacentHTML('beforeend', html);
+  
+		  // Reset form
+		  productForm.reset();
+		});
+	  </script>
+	
+	<style>
+		/* Định dạng cho form */
+		#product-form {
+		  width: 50%;
+		  margin: 0 auto;
+		}
+		
+		#product-list {
+		  width: 80%;
+		  margin: 0 auto;
+		  border-collapse: collapse;
+		}
+  
+		label {
+		  display: block;
+		  margin-bottom: 5px;
+		}
+  
+		input[type="text"],
+		input[type="number"],
+		select,
+		textarea {
+		  width: 100%;
+		  margin-bottom: 10px;
+		  padding: 5px;
+		}
+  
+		input[type="submit"] {
+		  background-color: #4caf50;
+		  color: white;
+		  padding: 10px;
+		  border: none;
+		  cursor: pointer;
+		}
+  
+		/* Định dạng cho danh sách sản phẩm */
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			max-width: 800px;
+			margin: 0 auto;
+		  }
+
+		th, td {
+		  text-align: center;
+		  padding: 8px;
+		  border: 1px solid #ddd;
+		}
+  
+		tr:nth-child(even) {
+		  background-color: #f2f2f2;
+		}
+  
+		th {
+		  background-color: #4caf50;
+		  color: white;
+		}
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 200px;
+			background-color: #eee;
+		}
+
+		.center p {
+			text-align: center;
+			font-size: 24px;
+			color: #333;
+		}
+	  </style>
+</head>
+<body>
+	<div class="center">
+		<p>Danh Sách Tạo Mới Sản Phẩm</p>
+	</div>
+    <!-- Form để tạo sản phẩm mới -->
+    <form id="product-form">
+      <table>
+        <tr>
+          <td><label for="name">Tên sản phẩm:</label></td>
+          <td><input type="text" id="name" name="name" required></td>
+        </tr>
+        <tr>
+          <td><label for="quantity">Số lượng:</label></td>
+          <td><input type="number" id="quantity" name="quantity" required></td>
+        </tr>
+        <tr>
+          <td><label for="status">Tình trạng:</label></td>
+          <td>
+            <select id="status" name="status" required>
+              <option value="new">Mới</option>
+              <option value="used">Đã sử dụng</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="category">Danh mục:</label></td>
+          <td><input type="text" id="category" name="category" required></td>
+        </tr>
+        <tr>
+          <td><label for="supplier">Nhà cung cấp:</label></td>
+          <td><input type="text" id="supplier" name="supplier" required></td>
+        </tr>
+        <tr>
+          <td><label for="price">Giá bán:</label></td>
+          <td><input type="number" id="price" name="price" required></td>
+        </tr>
+        <tr>
+          <td><label for="description">Chi tiết sản phẩm:</label></td>
+          <td><textarea id="description" name="description"></textarea></td>
+        </tr>
+      </table>
+
+      <input type="submit" value="Tạo sản phẩm">
+    </form>
+
+    <!-- Danh sách sản phẩm -->
+    <table id="product-list">
+      <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Tình trạng</th>
+          <th>Danh mục</th>
+          <th>Nhà cung cấp</th>
+          <th>Giá bán</th>
+          <th>Chi tiết sản phẩm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Danh sách sản phẩm sẽ được thêm vào đây -->
+      </tbody>
+    </table>
+
+<body>
+<html>
+    <router-outlet></router-outlet>
+

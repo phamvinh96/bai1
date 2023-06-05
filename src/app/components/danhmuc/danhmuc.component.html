@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+  <style>
+    .button-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+		  }
+		  
+		  .button {
+			display: inline-block;
+			padding: 10px;
+			font-size: 16px;
+			background-color: #008CBA;
+			color: white;
+			border: none;
+			text-decoration: none;
+			margin-right: 10px;
+			cursor: pointer;
+		  }
+		  
+		  .button:hover {
+			background-color: #006B8F;
+		  }
+      .search-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      
+      input[type=text] {
+        width: 250px;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 2px solid #ccc;
+      }
+      
+      button[type=submit] {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      
+      button[type=submit]:hover {
+        background-color: #006B8F;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        background-color: #eee;
+      }
+  
+      .center p {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      
+      h1 {
+        font-size: 36px;
+        text-align: center;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+      
+      label {
+        margin-bottom: 10px;
+      }
+      
+      input[type="submit"],
+      button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        background-color: #008CBA;
+        color: #fff;
+        cursor: pointer;
+      }
+      
+      input[type="submit"]:hover,
+      button:hover {
+        background-color: #00688B;
+      }
+      
+      ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+      }
+      
+      li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 250px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      img {
+        max-width: 100%;
+        max-height: 150px;
+        margin-bottom: 10px;
+      }
+  </style>
+</head>
+<body>
+  <div class="button-group">
+    <a routerLink="/create-supplier" class="button">Tạo mới khách hàng</a>
+    <a routerLink="/create-category" class="button">Thêm danh mục</a>
+    <a routerLink="/create-category" class="button">In dữ liệu</a>
+  
+
+  </div>
+  <div class="search-container">
+    <form action="/search">
+      <input type="text" placeholder="Nhập từ khóa tìm kiếm" name="search">
+      <button type="submit"><i class="fa fa-search"></i>Tìm Kiếm</button>
+    </form>
+  </div>
+  <div class="center">
+		<p>Quản Lý Khách Hàng</p>
+	</div>
+    <div class="container">
+        <h1>Bán sản phẩm</h1>
+        
+        <form id="add-product-form">
+          <label for="product-name">Tên sản phẩm:</label>
+          <input type="text" id="product-name" name="product-name" required>
+          
+          <label for="product-price">Giá:</label>
+          <input type="number" id="product-price" name="product-price" required>
+          
+          <label for="product-quantity">Số lượng:</label>
+          <input type="number" id="product-quantity" name="product-quantity" required>
+          
+          <label for="product-image">Hình ảnh:</label>
+          <input type="file" id="product-image" name="product-image" accept="image/*" required>
+          
+          <button type="submit">Thêm sản phẩm</button>
+        </form>
+        
+        <h2>Danh sách sản phẩm</h2>
+        
+        <ul id="product-list"></ul>
+         <script type="text/javascript">
+          const addProductForm = document.getElementById('add-product-form');
+      const productList = document.getElementById('product-list');
+      const products = [];
+      
+      addProductForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const productName = document.getElementById('product-name').value;
+        const productPrice = document.getElementById('product-price').value;
+        const productQuantity = document.getElementById('product-quantity').value;
+        const productImage = document.getElementById('product-image').files[0];
+        
+        if (!productName || !productPrice || !productQuantity || !productImage) {
+          alert('Vui lòng nhập đầy đủ thông tin sản phẩm');
+          return;
+        }
+        
+        const product = {
+          name: productName,
+          price: productPrice,
+          quantity: productQuantity,
+          image: URL.createObjectURL(productImage)
+        };
+        
+        products.push(product);
+        
+        displayProducts();
+        
+        addProductForm.reset();
+      });
+      
+      function displayProducts() {
+        productList.innerHTML = '';
+        
+        products.forEach(function(product) {
+          const li = document.createElement('li');
+          
+          const img = document.createElement('img');
+          img.src = product.image;
+          li.appendChild(img);
+          
+          const name = document.createElement('h3');
+          name.textContent = product.name;
+          li.appendChild(name);
+          
+          const price = document.createElement('p');
+          price.textContent = `Giá: ${product.price} đ`;
+          li.appendChild(price);
+          
+          const quantity = document.createElement('p');
+          quantity.textContent = `Số lượng: ${product.quantity}`;
+          li.appendChild(quantity);
+          
+          productList.appendChild(li);
+        });
+      }
+        </script>
+<body>
+<html>
+

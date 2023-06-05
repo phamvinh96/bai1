@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+    <script>
+        let employeeList = [];
+    
+        function addEmployee() {
+            event.preventDefault();
+            let newEmployee = {
+                id: document.getElementById("id").value,
+                name: document.getElementById("name").value,
+                fullname: document.getElementById("fullname").value,
+                address: document.getElementById("address").value,
+                dob: document.getElementById("dob").value,
+                gender: document.getElementById("gender").value,
+                phone: document.getElementById("phone").value,
+                position: document.getElementById("position").value
+            };
+            employeeList.push(newEmployee);
+            displayEmployees();
+        }
+        
+        function displayEmployees() {
+            let tableBody = document.querySelector("#employeeTable tbody");
+            tableBody.innerHTML = "";
+            for (let i = 0; i < employeeList.length; i++) {
+                let row = tableBody.insertRow(-1);
+                let idCell = row.insertCell(0);
+                let nameCell = row.insertCell(1);
+                let fullnameCell = row.insertCell(2);
+                let addressCell = row.insertCell(3);
+                let dobCell = row.insertCell(4);
+                let genderCell = row.insertCell(5);
+                let phoneCell = row.insertCell(6);
+                let positionCell = row.insertCell(7);
+                idCell.innerHTML = employeeList[i].id;
+                nameCell.innerHTML = employeeList[i].name;
+                fullnameCell.innerHTML = employeeList[i].fullname;
+                addressCell.innerHTML = employeeList[i].address;
+                dobCell.innerHTML = employeeList[i].dob;
+                genderCell.innerHTML = employeeList[i].gender;
+                phoneCell.innerHTML = employeeList[i].phone;
+                positionCell.innerHTML = employeeList[i].position;
+            }
+        }
+    
+    
+      </script>
+      <style type="text/css">
+        .button-group {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px;
+          }
+          
+          .button {
+          display: inline-block;
+          padding: 10px;
+          font-size: 16px;
+          background-color: #008CBA;
+          color: white;
+          border: none;
+          text-decoration: none;
+          margin-right: 10px;
+          cursor: pointer;
+          }
+          
+          .button:hover {
+          background-color: #006B8F;
+          }
+          .search-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+          }
+          
+          input[type=text] {
+            width: 250px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+          }
+          
+          button[type=submit] {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+          }
+          
+          button[type=submit]:hover {
+            background-color: #006B8F;
+          }
+          
+    
+          .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .row label {
+            flex-basis: 20%;
+            margin-right: 10px;
+            text-align: right;
+        }
+        .row input, .row select {
+            flex-basis: 50%;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        .row input[type="submit"] {
+            margin-left: 20%;
+            background-color:  #00bfff;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        .row input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: auto;
+            margin-top: 50px;
+        }
+        table th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color:  #00bfff;
+            color: white;
+        }
+      </style>
+</head>
+<body>
+    <div class="button-group">
+        <a routerLink="/dangnhap" class="button">Danh Sách Nhân Viên</a>
+        <a routerLink="/create-supplier" class="button">In dữ liệu</a>
+    
+        <a routerLink="/create-category" class="button">Thêm danh mục</a>
+      </div>
+      <div class="search-container">
+        <form action="/search">
+          <input type="text" placeholder="Nhập từ khóa tìm kiếm" name="search">
+          <button type="submit"><i class="fa fa-search"></i>Tìm Kiếm</button>
+        </form>
+      </div>
+      <h2 style="text-align: center;">Thêm nhân viên mới</h2>
+      <div class="form-container">
+          <form>
+              <div class="row">
+                  <label for="id">ID:</label>
+                  <input type="text" id="id" name="id" required>
+              </div>
+              <div class="row">
+                  <label for="name">Tên nhân viên:</label>
+                  <input type="text" id="name" name="name" required>
+              </div>
+              <div class="row">
+                  <label for="fullname">Họ và tên:</label>
+                  <input type="text" id="fullname" name="fullname" required>
+              </div>
+              <div class="row">
+                  <label for="address">Địa chỉ:</label>
+                  <input type="text" id="address" name="address" required>
+              </div>
+              <div class="row">
+                  <label for="dob">Ngày sinh:</label>
+                  <input type="date" id="dob" name="dob" required>
+              </div>
+              <div class="row">
+                  <label for="gender">Giới tính:</label>
+                  <select id="gender" name="gender" required>
+                      <option value="Nam">Nam</option>
+                      <option value="Nữ">Nữ</option>
+                  </select>
+              </div>
+              <div class="row">
+                  <label for="phone">Số điện thoại:</label>
+                  <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+              </div>
+              <div class="row">
+                  <label for="position">Chức vụ:</label>
+                  <input type="text" id="position" name="position" required>
+              </div>
+              <div class="row">
+                  <input type="submit" value="Thêm nhân viên" onclick="addEmployee()">
+              </div>
+          </form>
+      </div>
+    
+      <h2 style="text-align: center;">Danh sách nhân viên</h2>
+      <table id="employeeTable">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Tên nhân viên</th>
+                  <th>Họ và tên</th>
+                  <th>Địa chỉ</th>
+                  <th>Ngày sinh</th>
+                  <th>Giới tính</th>
+                  <th>Số điện thoại</th>
+                  <th>Chức vụ</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+    
+      <script src="script.js"></script>
+<body>
+<html>
+    
+
+
+
+

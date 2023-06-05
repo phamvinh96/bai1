@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		.button-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+		  }
+		  
+		  .button {
+			display: inline-block;
+			padding: 10px;
+			font-size: 16px;
+			background-color: #008CBA;
+			color: white;
+			border: none;
+			text-decoration: none;
+			margin-right: 10px;
+			cursor: pointer;
+		  }
+		  
+		  .button:hover {
+			background-color: #006B8F;
+		  }
+		  .search-container {
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 20px;
+		  }
+		  
+		  input[type=text] {
+			width: 250px;
+			padding: 10px;
+			font-size: 16px;
+			border: none;
+			border-bottom: 2px solid #ccc;
+		  }
+		  
+		  button[type=submit] {
+			padding: 10px;
+			font-size: 16px;
+			background-color: #008CBA;
+			color: white;
+			border: none;
+			cursor: pointer;
+		  }
+		  
+		  button[type=submit]:hover {
+			background-color: #006B8F;
+		  }
+		  table {
+			border-collapse: collapse;
+			width: 100%;
+			max-width: 800px;
+			margin:  auto;
+		  }
+		  
+		  th, td {
+			border: 1px solid #ddd;
+			text-align: center;
+			padding: 8px;
+			
+		  }
+		
+		  
+		  th {
+			background-color: #008CBA;
+			color: white;
+		  }
+		  
+		  tr:nth-child(even) {
+			background-color: #f2f2f2;
+		  }
+		  
+		  a {
+			text-decoration: none;
+			color: #333;
+			margin-right: 10px;
+		  }
+		  
+		  a:hover {
+			color: #008CBA;
+		  }
+		  
+		  .fa {
+			font-size: 18px;
+			cursor: pointer;
+		  }
+		  
+		  .fa-edit {
+			color: #008CBA;
+		  }
+		  
+		  .fa-trash {
+			color: #f44336;
+		  }
+		  .center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 200px;
+			background-color: #eee;
+		}
+
+		.center p {
+			text-align: center;
+			font-size: 24px;
+			color: #333;
+		}
+		
+	  </style>
+</head>
+<body>
+	<div class="button-group">
+		<a routerLink="/home" class="button">Tạo mới sản phẩm</a>
+
+		<a routerLink="/khachhang" class="button">Thêm nhà cung cấp</a>
+		
+
+		<a routerLink="/danhmuc" class="button">Thêm danh mục sản phẩm</a>
+	  </div>
+	  <div class="search-container">
+		<form action="/search">
+		  <input type="text" placeholder="Nhập từ khóa tìm kiếm" name="search">
+		  <button type="submit"><i class="fa fa-search"></i> Tìm kiếm</button>
+		</form>
+	  </div>
+	  <div class="center">
+		<p>Danh Sách Quản Lý Sản Phẩm</p>
+	</div>
+
+	  <table>
+		<thead>
+		  <tr>
+			<th>Mã sản phẩm</th>
+			<th>Tên sản phẩm đồng hồ</th>
+			<th>Số lượng</th>
+			<th>Tình trạng</th>
+			<th>Giá tiền</th>
+			<th>Danh mục</th>
+			<th>Chức năng</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td>SP001</td>
+			<td>Đồng hồ Casio</td>
+			<td>50</td>
+			<td>Còn hàng</td>
+			<td>500.000đ</td>
+			<td>Đồng hồ nam</td>
+			<td>
+			  <a href="/home"><i class="fa fa-edit">Thêm</i></a>
+			  <a href="/home"><i class="fa fa-trash">Xóa</i></a>
+			</td>
+		  </tr>
+		  <tr>
+			<td>SP002</td>
+			<td>Đồng hồ Seiko</td>
+			<td>30</td>
+			<td>Hết hàng</td>
+			<td>1.000.000đ</td>
+			<td>Đồng hồ nữ</td>
+			<td>
+			  <a routerLink="/home"><i class="fa fa-edit">Thêm</i></a>
+			  <a routerLink="/home"><i class="fa fa-trash">xóa</i></a>
+			</td>
+		  </tr>
+		</tbody>
+		
+	  </table>
+
+	
+<body>
+<html>
+    
+
+
+<router-outlet></router-outlet>
+

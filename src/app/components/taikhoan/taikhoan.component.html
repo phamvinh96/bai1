@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+  <style>
+    .button-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+		  }
+		  
+		  .button {
+			display: inline-block;
+			padding: 10px;
+			font-size: 16px;
+			background-color: #008CBA;
+			color: white;
+			border: none;
+			text-decoration: none;
+			margin-right: 10px;
+			cursor: pointer;
+		  }
+		  
+		  .button:hover {
+			background-color: #006B8F;
+		  }
+      .search-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      
+      input[type=text] {
+        width: 250px;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 2px solid #ccc;
+      }
+      
+      button[type=submit] {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      
+      button[type=submit]:hover {
+        background-color: #006B8F;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        background-color: #eee;
+      }
+  
+      .center p {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+      }
+      /* CSS cho bảng */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+  
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+  
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+  
+      /* CSS cho form */
+      form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+      }
+  
+      label {
+        margin-bottom: 8px;
+      }
+  
+      input[type="text"], input[type="password"] {
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        width: 100%;
+      }
+  
+      input[type="submit"], button {
+        padding: 8px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+  
+      button {
+        margin-left: 8px;
+        background-color: #f44336;
+      }
+  
+      /* CSS cho modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+  
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+  
+      .modal-header h2 {
+        margin: 0;
+      }
+  
+      .close {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+  
+      .close:hover, .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+  
+      .modal-body {
+        flex: 1;
+        margin-bottom: 16px;
+      }
+  
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+      }
+  </style>
+</head>
+<body>
+  <div class="button-group">
+    <a routerLink="/create-supplier" class="button">Tạo mới khách hàng</a>
+    <a routerLink="/create-category" class="button">Thêm danh mục</a>
+    <a routerLink="/create-category" class="button">In dữ liệu</a>
+  
+
+  </div>
+  <div class="search-container">
+    <form action="/search">
+      <input type="text" placeholder="Nhập từ khóa tìm kiếm" name="search">
+      <button type="submit"><i class="fa fa-search"></i>Tìm Kiếm</button>
+    </form>
+  </div>
+  <div class="center">
+		<p>Quản Lý Tài Khoản</p>
+	</div>
+    <form id="accountForm">
+        <label for="username">Tài khoản:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password">
+        <input type="submit" value="Tạo mới">
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Tài khoản</th>
+            <th>Mật khẩu</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="accountList">
+          <!-- Danh sách tài khoản sẽ được thêm vào đây -->
+        </tbody>
+      </table>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="modalTitle"></h2>
+            <span class="close">&times;</span>
+          </div>
+          <div class="modal-body">
+            <form id="editAccountForm">
+              <label for="editUsername">Tài khoản:</label>
+              <input type="text" id="editUsername" name="username">
+              <label for="editPassword">Mật khẩu:</label>
+              <input type="password" id="editPassword" name="password">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="saveChanges">Lưu thay đổi</button>
+            <button id="deleteAccount">Xóa tài khoản</button>
+          </div>
+        </div>
+      </div>
+    
+      <script>
+        // Dữ liệu tài khoản ban đầu
+        let accounts = [
+          {username: "user1", password: "password1"},
+          {username: "user2", password: "password2"},
+          {username: "user3", password: "password3"}
+        ];
+    
+        // Lấy thẻ tbody của bảng
+        const accountList = document.getElementById("accountList");
+    
+        // Hiển thị danh sách tài khoản ban đầu
+        displayAccounts(accounts);
+    
+        // Lắng nghe sự kiện submit form tạo mới tài khoản
+        const accountForm = document.getElementById("accountForm");
+        accountForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          if (username && password) {
+            const newAccount = {username, password};
+            accounts.push(newAccount);
+            displayAccounts(accounts);
+            accountForm.reset();
+          }
+        });
+    
+        // Hiển thị modal sửa đổi tài khoản khi click vào nút Sửa đổi trong bảng
+        accountList.addEventListener("click", (event) => {
+          if (event.target.classList.contains("editAccount")) {
+            const index = event.target.dataset.index;
+            const account = accounts[index];
+            document.getElementById("editUsername").value = account.username;
+            document.getElementById("editPassword").value = account.password;
+            document.getElementById("saveChanges").dataset.index = index;
+            document.getElementById("deleteAccount").dataset.index = index;
+            document.getElementById("modalTitle").textContent = "Sửa đổi tài khoản";
+            document.getElementById("myModal").style.display = "block";
+          }
+        });
+    
+        // Lắng nghe sự kiện click vào nút Lưu thay đổi trong modal sửa đổi tài khoản
+        const editAccountForm = document.getElementById("editAccountForm");
+        editAccountForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const index = event.target.querySelector("#saveChanges").dataset.index;
+          const username = document.getElementById("editUsername").value;
+          const password = document.getElementById("editPassword").value;
+          if (username && password) {
+            const editedAccount = {username, password};
+            accounts[index] = editedAccount;
+            displayAccounts(accounts);
+            document.getElementById("myModal").style.display = "none";
+          }
+        });
+    
+        // Lắng nghe sự kiện click vào nút Xóa tài khoản trong modal sửa đổi tài khoản
+        const deleteAccountButton = document.getElementById("deleteAccount");
+        deleteAccountButton.addEventListener("click", (event) => {
+          const index = event.target.dataset.index;
+          accounts.splice(index, 1);
+          displayAccounts(accounts);
+          document.getElementById("myModal").style.display = "none";
+        });
+    
+        // Lắng nghe sự kiện click vào nút đóng modal
+        const closeButton = document.getElementsByClassName("close")[0];
+        closeButton.addEventListener("click", () => {
+          document.getElementById("myModal").style.display = "none";
+        });
+    
+        // Hiển thị danh sách tài khoản
+        function displayAccounts(accounts) {
+          // Xóa nội dung tbody hiện tại
+          accountList.innerHTML = "";
+          // Thêm từng tài khoản vào tbody
+          accounts.forEach((account, index) => {
+            const row = document.createElement("tr");
+            const usernameCell = document.createElement("td");
+            const passwordCell = document.createElement("td");
+            const actionCell = document.createElement("td");
+            const editButton = document.createElement("button");
+            editButton.textContent = "Sửa đổi";
+            editButton.classList.add("editAccount");
+            editButton.dataset.index = index;
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Xóa";
+            deleteButton.classList.add("deleteAccount");
+            deleteButton.dataset.index = index;
+            usernameCell.textContent = account.username;
+            passwordCell.textContent = account.password;
+            actionCell.appendChild(editButton);
+            actionCell.appendChild(deleteButton);
+            row.appendChild(usernameCell);
+            row.appendChild(passwordCell);
+            row.appendChild(actionCell);
+            accountList.appendChild(row);
+          });
+        }
+      </script>
+<body>
+<html>
+

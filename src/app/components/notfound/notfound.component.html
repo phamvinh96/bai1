@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+    <script type="text/javascript">
+        // Sample employee data
+var employees = [
+    { id: 1, name: 'John Doe', fullname: 'John Doe', address: '123 Main St, Anytown USA', dob: '01/01/1980', gender: 'Male', phone: '555-1234', position: 'Manager' },
+    { id: 2, name: 'Jane Smith', fullname: 'Jane Smith', address: '456 Oak St, Anytown USA', dob: '02/02/1985', gender: 'Female', phone: '555-5678', position: 'Assistant Manager' },
+    { id: 3, name: 'Bob Johnson', fullname: 'Bob Johnson', address: '789 Elm St, Anytown USA', dob: '03/03/1990', gender: 'Male', phone: '555-9101', position: 'Clerk' },
+    { id: 4, name: 'Mary Brown', fullname: 'Mary Brown', address: '321 Maple St, Anytown USA', dob: '04/04/1995', gender: 'Female', phone: '555-2345', position: 'Clerk' },
+    { id: 5, name: 'Tom Wilson', fullname: 'Tom Wilson', address: '654 Pine St, Anytown USA', dob: '05/05/2000', gender: 'Male', phone: '555-6789', position: 'Janitor' },
+    { id: 6, name: 'Sue Lee', fullname: 'Sue Lee', address: '987 Cedar St, Anytown USA', dob: '06/06/1975', gender: 'Female', phone: '555-0123', position: 'Clerk' },
+    { id: 7, name: 'Jim Davis', fullname: 'Jim Davis', address: '246 Birch St, Anytown USA', dob: '07/07/1982', gender: 'Male', phone: '555-3456', position: 'Clerk' },
+    { id: 8, name: 'Ann Taylor', fullname: 'Ann Taylor', address: '369 Oak St, Anytown USA', dob: '08/08/1991', gender: 'Female', phone: '555-6789', position: 'Assistant Manager' },
+    { id: 9, name: 'Jerry Brown', fullname: 'Jerry Brown', address: '159 Maple St, Anytown USA', dob: '09/09/1996', gender: 'Male', phone: '555-0123', position: 'Clerk' },
+    { id: 10, name: 'Lisa Smith', fullname: 'Lisa Smith', address: '753 Cedar St, Anytown USA', dob: '10/10/1981', gender: 'Female', phone: '555-3456', position: 'Manager' },
+    { id: 11, name: 'Mike Johnson', fullname: 'Mike Johnson', address: '852 Birch St, Anytown USA', dob: '11/11/1976', gender: 'Male', phone: '555-6789', position: 'Janitor' },
+    { id: 12, name: 'Kim Lee', fullname: 'Kim Lee', address: '963 Oak St, Anytown USA', dob: '12/12/1983', gender: 'Female', phone: '555-0123', position: 'Clerk' },
+    { id: 13, name: 'Bill Davis', fullname: 'Bill Davis', address: '741 Maple St, Anytown USA', dob: '01/13/1992', gender: 'Male', phone: '555-3456', position: 'Clerk' },
+    { id: 14, name: 'Jen Wilson', fullname: 'Jen Wilson
+    </script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+            margin: auto;
+            margin-top: 30px;
+        }
+        table th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color:  #00bfff;
+            color: white;
+        }
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        form label {
+            margin-right: 10px;
+        }
+        form input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        form input[type="submit"] {
+            background-color:  #00bfff;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .pagination {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+        }
+        .pagination .active {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .button-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+		  }
+		  
+		  .button {
+			display: inline-block;
+			padding: 10px;
+			font-size: 16px;
+			background-color: #008CBA;
+			color: white;
+			border: none;
+			text-decoration: none;
+			margin-right: 10px;
+			cursor: pointer;
+		  }
+		  
+		  .button:hover {
+			background-color: #006B8F;
+		  }
+    </style>
+</head>
+<body>
+    <div class="button-group">
+        <a routerLink="/dangnhap" class="button">Tạo mới khách hàng</a>
+        <a routerLink="/create-category" class="button">Thêm danh mục</a>
+        <a routerLink="/create-category" class="button">In dữ liệu</a>
+      
+    
+      </div>
+    <body> <h2 style="text-align: center;">Danh sách nhân viên</h2>
+        <form>
+            <label for="search">Tìm kiếm:</label>
+            <input type="text" id="search" name="search" placeholder="Nhập từ khóa">
+            <input type="submit" value="Tìm kiếm" onclick="searchEmployees()">
+            <label for="sort">Sắp xếp theo:</label>
+            <select id="sort" name="sort" onchange="sortEmployees()">
+                <option value="id">ID</option>
+                <option value="name">Tên nhân viên</option>
+                <option value="fullname">Họ và tên</option>
+                <option value="address">Địa chỉ</option>
+                <option value="dob">Ngày sinh</option>
+                <option value="gender">Giới tính</option>
+                <option value="phone">Số điện thoại</option>
+                <option value="position">Chức vụ</option>
+            </select>
+        </form>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nhân viên</th>
+                    <th>Họ và tên</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>SĐT</th>
+                    <th>Chức vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="pagination" id="pagination">
+            <a href="#" id="prev" onclick="prevPage()">&laquo; Trang trước</a>
+            <a href="#" id="next" onclick="nextPage()">Trang sau &raquo;</a>
+        </div>
+        <script src="script.js"></script>
+<body>
+<html>
+    
+
+
+
+

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+    <script>
+        const orderForm = document.getElementById("order-form");
+        const orderList = document.getElementById("order-list");
+        let orders = [];
+        
+        function renderTable() {
+          orderList.innerHTML = "";
+          orders.forEach((order) => {
+            const tr = document.createElement("tr");
+            const idTd = document.createElement("td");
+            const nameTd = document.createElement("td");
+            const addressTd = document.createElement("td");
+            const phoneTd = document.createElement("td");
+            const priceTd = document.createElement("td");
+        
+            idTd.innerText = order.id;
+            nameTd.innerText = order.customerName;
+            addressTd.innerText = order.customerAddress;
+            phoneTd.innerText = order.customerPhone;
+            priceTd.innerText = order.totalPrice;
+        
+            tr.appendChild(idTd);
+            tr.appendChild(nameTd);
+            tr.appendChild(addressTd);
+            tr.appendChild(phoneTd);
+            tr.appendChild(priceTd);
+        
+            orderList.appendChild(tr);
+          });
+        }
+        
+        function addOrder(order) {
+          orders.push(order);
+          renderTable();
+        }
+        
+        orderForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+        
+          const name = orderForm.elements["customer-name"].value;
+          const address = orderForm.elements["customer-address"].value;
+          const phone = orderForm.elements["customer-phone"].value;
+          const price = orderForm.elements["total-price"].value;
+        
+          const newOrder = { id: orders.length + 1, customerName: name, customerAddress: address, customerPhone: phone, totalPrice: price };
+          addOrder(newOrder);
+        
+          orderForm.reset();
+        });
+
+        const processForm = document.getElementById('process-form');
+        const notification = document.getElementById('notification');
+        
+        processForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const orderId = document.getElementById('order-id').value;
+          const status = document.getElementById('status').value;
+          notification.textContent = `Đã cập nhật trạng thái đơn hàng ${orderId} thành ${status}`;
+          notification.classList.add('show');
+          setTimeout(function() {
+            notification.classList.remove('show');
+          }, 3000);
+          processForm.reset();
+        });
+    </script>
+  <style>
+    .button-group {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+		  }
+		  
+		  .button {
+			display: inline-block;
+			padding: 10px;
+			font-size: 16px;
+			background-color: #008CBA;
+			color: white;
+			border: none;
+			text-decoration: none;
+			margin-right: 10px;
+			cursor: pointer;
+		  }
+		  
+		  .button:hover {
+			background-color: #006B8F;
+		  }
+      .search-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      
+      input[type=text] {
+        width: 250px;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 2px solid #ccc;
+      }
+      
+      button[type=submit] {
+        padding: 10px;
+        font-size: 16px;
+        background-color: #008CBA;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      
+      button[type=submit]:hover {
+        background-color: #006B8F;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+        background-color: #eee;
+      }
+  
+      .center p {
+        text-align: center;
+        font-size: 24px;
+        color: #333;
+      }
+      body {
+        margin-top: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      
+      header {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+      }
+      
+      h1 {
+        margin: 0;
+      }
+      
+      main {
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      
+      section {
+        flex: 1;
+        margin-right: 20px;
+      }
+      
+      section:last-child {
+        margin-right: 0;
+      }
+      
+      h2 {
+        margin-top: 0;
+      }
+      
+      table {
+        border-collapse: collapse;
+        width: 70%;
+      }
+      
+      table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      
+      table th {
+        background-color: #f2f2f2;
+      }
+      
+      table td:last-child {
+        text-align: center;
+      }
+      
+      .process-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      .process-button:hover {
+        background-color: #3e8e41;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+      }
+      
+      label {
+        margin-bottom: 5px;
+      }
+      
+      input, select {
+        padding: 8px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 4px;
+      }
+      
+      button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      
+      button[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+      
+      #notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        display: none;
+      }
+      
+      #notification.show {
+        display: block;
+        animation: fade-in 1s ease-in-out;
+      }
+      
+      @keyframes fade-in {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+  </style>
+</head>
+<body>
+  <div class="button-group">
+    <a routerLink="/create-supplier" class="button">Tạo mới khách hàng</a>
+    <a routerLink="/create-category" class="button">Thêm danh mục</a>
+    <a routerLink="/create-category" class="button">In dữ liệu</a>
+  
+
+  </div>
+  <div class="search-container">
+    <form action="/search">
+      <input type="text" placeholder="Nhập từ khóa tìm kiếm" name="search">
+      <button type="submit"><i class="fa fa-search"></i>Tìm Kiếm</button>
+    </form>
+  </div>
+  <div class="center">
+		<p>Gởi Thông Báo </p>
+	</div>
+    
+   
+      
+      <main>
+        <section>
+          <h2>Danh sách đơn hàng</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên khách hàng</th>
+                <th>Địa chỉ</th>
+                <th>Số điện thoại</th>
+                <th>Loại đồng hồ</th>
+                <th>Màu sắc</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Nguyễn Văn A</td>
+                <td>123 Đường ABC, Quận XYZ, TP.HCM</td>
+                <td>0987654321</td>
+                <td>Đồng hồ nam</td>
+                <td>Xanh dương</td>
+                <td>2</td>
+                <td>2,000,000 VNĐ</td>
+                <td>Chưa xử lý</td>
+                <td><button class="process-button">Xử lý</button></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Trần Thị B</td>
+                <td>456 Đường DEF, Quận GHI, TP.HCM</td>
+                <td>0123456789</td>
+                <td>Đồng hồ nữ</td>
+                <td>Đen</td>
+                <td>1</td>
+                <td>1,500,000 VNĐ</td>
+                <td>Đang xử lý</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Lê Đình C</td>
+                <td>789 Đường HIJ, Quận KLM, TP.HCM</td>
+                <td>0123456789</td>
+                <td>Đồng hồ nam</td>
+                <td>Đen</td>
+                <td>3</td>
+                <td>4,500,000 VNĐ</td>
+                <td>Đã xử lý</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h2>Xử lý đơn hàng</h2>
+          <form id="process-form">
+            <label for="order-id">Mã đơn hàng:</label>
+            <input type="text" id="order-id" name="order-id" required>
+            <label for="status">Trạng thái:</label>
+            <select id="status" name="status" required>
+              <option value="Chưa xử lý">Chưa xử lý</option>
+              <option value="Đang xử lý">Đang xử lý</option>
+              <option value="Đã xử lý">Đã xử lý</option>
+            </select>
+            <button type="submit">Cập nhật trạng thái</button>
+          </form>
+        </section>
+      </main>
+      
+      <div id="notification"></div> 
+<body>
+<html>
+

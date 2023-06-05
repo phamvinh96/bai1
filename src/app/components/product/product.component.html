@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+  
+  <script type="text/javascript">
+    // Danh sách đơn hàng
+var orders = [];
+
+// Lấy danh sách đơn hàng từ local storage
+if (localStorage.getItem("orders") !== null) {
+  orders = JSON.parse(localStorage.getItem("orders"));
+}
+
+// Hiển thị danh sách đơn hàng
+function displayOrders() {
+  var orderList = document.getElementById("order-list");
+  orderList.innerHTML = "";
+  for (var i = 0; i < orders.length; i++) {
+    var order = orders[i];
+    var row = "<tr><td>" + order.id + "</td><td>" + order.customerName + "</td><td>" + order.productName + "</td><td>" + order.quantity + "</td><td><button class='edit-button' data-id='" + order.id + "'>Sửa</button><button class='delete-button' data-id='" + order.id + "'>Xóa</button></td></tr>";
+    orderList.innerHTML += row;
+  }
+}
+
+// Thêm đơn hàng mới
+function addOrder(event) {
+  event.preventDefault();
+  var customerName = document.getElementById("customer-name").value;
+  var productName = document.getElementById("product-name").value;
+  var quantity = document.getElementById("quantity").value;
+  var id = Date.now();
+  var order = {id: id, customerName: customerName, productName: productName, quantity: quantity};
+  orders.push(order);
+  localStorage.setItem("orders", JSON.stringify(orders));
+  displayOrders();
+  document.getElementById("add-order-form").reset();
+}
+
+// Mở modal sửa đơn hàng
+function openEditModal(event) {
+  if (event.target.classList.contains("edit-button")) {
+    var id = event.target.getAttribute("data-id");
+    var order = orders.find(function(order) {
+      return order.id == id;
+    });
+    document.getElementById("edit-order-id").value = order.id;
+    document.getElementById("edit-customer-name").value = order.customerName;
+    document.getElementById("edit-product-name").value = order.productName;
+    document.getElementById("edit-quantity").value = order.quantity;
+    document.getElementById("edit-order-modal").style.display = "block";
+  }
+}
+
+// Đóng modal sửa đơn hàng
+function closeEditModal() {
+  document.getElementById("edit-order-modal").style.display = "none";
+}
+
+// Lưu thông tin đơn hàng đã sửa
+function saveEditedOrder(event) {
+  event.preventDefault();
+  var id = document.getElementById("edit-order-id").value;
+  var customerName = document.getElementById("edit-customer-name").value;
+  var productName = document.getElementById("edit-product-name").value;
+  var quantity = document.getElementById("edit-quantity").value;
+  var orderIndex = orders.findIndex(function(order) {
+    return order.id == id;
+  });
+  orders[orderIndex].customerName = customerName;
+  orders[orderIndex].productName =productName;
+  orders[orderIndex].quantity = quantity;
+  localStorage.setItem("orders", JSON.stringify(orders));
+  displayOrders();
+  closeEditModal();
+}
+
+// Xóa đơn hàng
+function deleteOrder(event) {
+  if (event.target.classList.contains("delete-button")) {
+    var id = event.target.getAttribute("data-id");
+    var orderIndex = orders.findIndex(function(order) {
+      return order.id == id;
+    });
+    orders.splice(orderIndex, 1);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    displayOrders();
+  }
+}
+
+// Gắn các sự kiện cho các nút và form
+document.addEventListener("DOMContentLoaded", function() {
+  displayOrders();
+  document.getElementById("add-order-form").addEventListener("submit", addOrder);
+  document.getElementById("order-list").addEventListener("click", openEditModal);
+  document.getElementById("edit-order-modal").addEventListener("click", function(event) {
+    if (event.target.classList.contains("close")) {
+      closeEditModal();
+    }
+  });
+  document.getElementById("edit-order-form").addEventListener("submit", saveEditedOrder);
+  document.getElementById("order-list").addEventListener("click", deleteOrder);
+});
+  </script>
+  <style type="text/css">
+    table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  margin-top: 10px;
+}
+
+input[type=text], input[type=number] {
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+font-size: 28px;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+	
+  <h1>Quản lý đơn hàng</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tên khách hàng</th>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody id="order-list">
+      <!-- Danh sách đơn hàng sẽ được thêm vào đây -->
+    </tbody>
+  </table>
+  <form id="add-order-form">
+    <h2>Thêm đơn hàng</h2>
+    <label for="customer-name">Tên khách hàng:</label>
+    <input type="text" id="customer-name" name="customer-name" required>
+    <label for="product-name">Tên sản phẩm:</label>
+    <input type="text" id="product-name" name="product-name" required>
+    <label for="quantity">Số lượng:</label>
+    <input type="number" id="quantity" name="quantity" required>
+    <button type="submit">Thêm</button>
+  </form>
+  <div id="edit-order-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Sửa đơn hàng</h2>
+      <form id="edit-order-form">
+        <input type="hidden" id="edit-order-id" name="edit-order-id">
+        <label for="edit-customer-name">Tên khách hàng:</label>
+        <input type="text" id="edit-customer-name" name="edit-customer-name" required>
+        <label for="edit-product-name">Tên sản phẩm:</label>
+        <input type="text" id="edit-product-name" name="edit-product-name" required>
+        <label for="edit-quantity">Số lượng:</label>
+        <input type="number" id="edit-quantity" name="edit-quantity" required>
+        <button type="submit">Lưu</button>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+
+</body>
+</html>
+    
+
+
+
+

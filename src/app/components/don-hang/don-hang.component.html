@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+ <style>
+  .button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    }
+    
+    .button {
+    display: inline-block;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    text-decoration: none;
+    margin-right: 10px;
+    cursor: pointer;
+    }
+    
+    .button:hover {
+    background-color: #006B8F;
+    }
+    .search-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    
+    input[type=text] {
+      width: 250px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+    }
+    
+    button[type=submit] {
+      padding: 10px;
+      font-size: 16px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    button[type=submit]:hover {
+      background-color: #006B8F;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    th {
+      background-color: #008CBA;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    select {
+      width: 100%;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+    
+    a {
+      text-decoration: none;
+      color: #333;
+      margin-right: 10px;
+    }
+    
+    a:hover {
+      color: #008CBA;
+    }
+    
+    .fa {
+      font-size: 18px;
+      cursor: pointer;
+    }
+    
+    .fa-eye {
+      color: #008CBA;
+    }
+    
+    .fa-edit {
+      color: #333;
+    }
+    .center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 200px;
+			background-color: #eee;
+		}
+
+		.center p {
+			text-align: center;
+			font-size: 24px;
+			color: #333;
+		}
+ </style>
+</head>
+<body>
+  <div class="button-group">
+    <a routerLink="/about" class="button">Tạo mới đơn hàng</a>
+    <a routerLink="/create-supplier" class="button">In dữ liệu</a>
+    <a routerLink="/donhang" class="button">Sửa Trạng Thái</a>
+    <a routerLink="/Thongbao" class="button">Gửi Thông Báo</a>
+    <a routerLink="/create-category" class="button">Thêm danh mục</a>
+  </div>
+  <div class="search-container">
+    <form action="/search">
+      <input type="text" placeholder="Nhập từ khóa tìm kiếm" name="search">
+      <button type="submit"><i class="fa fa-search"></i>Tìm Kiếm</button>
+    </form>
+  </div>
+  <div class="center">
+		<p>Quản Lý Đơn Hàng</p>
+	</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Mã đơn hàng</th>
+        <th>Tên khách hàng</th>
+        <th>Số điện thoại</th>
+        <th>Địa chỉ</th>
+        <th>Ngày đặt hàng</th>
+        <th>Trạng thái</th>
+        <th>Chức năng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>DH001</td>
+        <td>Nguyễn Văn A</td>
+        <td>0901234567</td>
+        <td>123 Đường ABC, Quận XYZ, TP.HCM</td>
+        <td>01/06/2023</td>
+        <td>
+          <select>
+            <option value="Chưa xử lý">Chưa xử lý</option>
+            <option value="Đang xử lý">Đang xử lý</option>
+            <option value="Đã giao hàng">Đã giao hàng</option>
+          </select>
+        </td>
+        <td>
+          <a href="/view-order"><i class="fa fa-eye">sửa </i></a>
+          <a href="/edit-order"><i class="fa fa-edit">Xóa</i></a>
+        </td>
+      </tr>
+      <tr>
+        <td>DH002</td>
+        <td>Trần Thị B</td>
+        <td>0987654321</td>
+        <td>456 Đường DEF, Quận GHI, TP.HCM</td>
+        <td>02/06/2023</td>
+        <td>
+          <select>
+            <option value="Chưa xử lý">Chưa xử lý</option>
+            <option value="Đang xử lý">Đang xử lý</option>
+            <option value="Đã giao hàng">Đã giao hàng</option>
+          </select>
+        </td>
+        <td>
+          <a href="/view-order"><i class="fa fa-eye">Sửa</i></a>
+          <a href="/edit-order"><i class="fa fa-edit">Xóa</i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<body>
+<html>
+    
+
+
+
+
